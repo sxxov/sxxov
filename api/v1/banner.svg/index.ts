@@ -20,7 +20,6 @@ const render = (ip: string) => /* html */ `
 			justify-content: center;
 			width: 100%;
 			height: 400px;
-			color: currentColor;
 			text-align: center;
 		}
 
@@ -35,8 +34,13 @@ const render = (ip: string) => /* html */ `
 			letter-spacing: -0.06em;
 			line-height: 0.8;
 			font-weight: 300;
+			color: black;
 			
 			animation: rotate ease-in-out 1s infinite alternate;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			h1 { color: white; }
 		}
 	</style>
 	<div class="component">
