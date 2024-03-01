@@ -1,6 +1,4 @@
-import { ipAddress } from '@vercel/edge';
-
-const render = (ip: string) => /* html */ `
+export const getBanner = (ip: string, mode: 'dark' | 'light') => /* html */ `
 <svg fill="none" viewBox="0 0 800 400" width="800" height="400" xmlns="http://www.w3.org/2000/svg">
 <foreignObject width="100%" height="100%">
 <div xmlns="http://www.w3.org/1999/xhtml">
@@ -34,13 +32,9 @@ const render = (ip: string) => /* html */ `
 			letter-spacing: -0.06em;
 			line-height: 0.8;
 			font-weight: 300;
-			color: black;
+			color: ${mode === 'dark' ? 'white' : 'black'};
 			
 			animation: rotate ease-in-out 1s infinite alternate;
-		}
-
-		@media (prefers-color-scheme: dark) {
-			h1 { color: white; }
 		}
 	</style>
 	<div class="component">
@@ -50,17 +44,3 @@ const render = (ip: string) => /* html */ `
 </foreignObject>
 </svg>
 `;
-
-export const config = {
-	runtime: 'edge',
-};
-
-export function GET(request: Request) {
-	const ip = ipAddress(request);
-	return new Response(render(ip ?? '🤔'), {
-		headers: {
-			'Content-Type': 'image/svg+xml',
-			'Access-Control-Allow-Origin': '*',
-		},
-	});
-}
